@@ -1,6 +1,7 @@
 [度盘更新](https://pan.baidu.com/s/1dDPd8uonkXofFcHEBTzUWA)
-[酷安](http://www.coolapk.com/u/715204)
-[本文档阅读模式](https://github.com/xwj1612/bangumi/blob/master/BiliAndroidMod.md)
+[酷安(弃坑)](http://www.coolapk.com/u/715204)
+[阅读模式](https://github.com/nmdx/bangumi/blob/master/BiliAndroidMod.md)
+[Github反馈](https://github.com/nmdx/bangumi/issues/1)
 **ps.以后只更新【测版】版本，测试版本将包括以下全部实验性的功能**
 
 [TOC]
