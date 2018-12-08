@@ -24,14 +24,14 @@
 
 
 ## 5.31.0+更新记录
-12.04：特别版本_移除直播流量提示
-11.10：特别版本_移除番剧和普通视频的流量播放提示
-10.30：去除小米/魅族/华为等推送receiver
-10.26：强制开启详情页投屏按钮，再无需全屏【鸡肋，废弃】
-10.21：非会员可以添加大会员番剧或者霹雳布袋戏之类的到缓存列表【不能正常缓存】，然后就可以使用视频替换大法(详见后，繁琐)
-10.18：跳过投屏权限服务器验证，本地强制开启投屏按钮，理论只要服务器不封掉投屏专用的视频api就能一直用；部分视频没有投屏源无法投屏，可能是官方cdn问题，无解
-10.17：修复强制跳过启动屏后，任何时候从桌面点图标都会打开首页的问题
-10.15：终于干死了新版微信分享用的小程序，这个实在没法劫持(ﾉ｀⊿´)ﾉ   恢复之前网页分享样式
+12.04：特别版本_移除直播流量提示  
+11.10：特别版本_移除番剧和普通视频的流量播放提示  
+10.30：去除小米/魅族/华为等推送receiver  
+10.26：强制开启详情页投屏按钮，再无需全屏【鸡肋，废弃】  
+10.21：非会员可以添加大会员番剧或者霹雳布袋戏之类的到缓存列表【不能正常缓存】，然后就可以使用视频替换大法(详见后，繁琐)  
+10.18：跳过投屏权限服务器验证，本地强制开启投屏按钮，理论只要服务器不封掉投屏专用的视频api就能一直用；部分视频没有投屏源无法投屏，可能是官方cdn问题，无解  
+10.17：修复强制跳过启动屏后，任何时候从桌面点图标都会打开首页的问题  
+10.15：终于干死了新版微信分享用的小程序，这个实在没法劫持(ﾉ｀⊿´)ﾉ   恢复之前网页分享样式  
 new:屏蔽升级地址，去除直播间右下角广告
 
 **强制跳过启动页，为什么冷启动那么慢？因为它优化的就是这么渣！启动页只是用来伪装它启动慢的事实！！**
@@ -52,13 +52,11 @@ new:支持免root破解核心安装啦，在yitry修改的包(去广告大会员
 进入大会员：个人中心点击图标 
 进入免流：流量进入视频详情，点击开通免流，点击激活
 
-
-港澳台番剧无解，大陆ip是无法获取到数据的。。
+港澳台番剧无解，大陆ip是无法获取到数据的。。  
 可以尝试搜索up主 哔哩哔哩番剧出差，在视频详情页左上角获取av号  然后去bilime搜索
 
 bilime是一个远古的小工具。。仅供备用
 折腾，使用bilime需要先用哔哩哔哩缓存一个视频(暂停即可)，  从bilime添加的缓存任务若无法显示，请强制(停止/重新启动)哔哩哔哩
-
 
 
 # 代码笔记
@@ -86,44 +84,44 @@ const v0 <1.找到这里>0x7f090269<找到这里>
 ## 主题代码
 特么。。第一次改错了，全买了一遍
 
-Arsc找到`%d硬币/月`的`id`，`5.9.1`为`7f1005c7`
+Arsc找到`%d硬币/月`的`id`，`5.9.1`为`7f1005c7`  
 `classes.dex`(大概和上面是同一个class)搜索`7f1005c7`，定位到`Lbl/emq`(之类的)方法列表，字符串搜索查找`free`最后大概剩下`b`和`onClick`两个方法
 
 1. b 代码片段:
-> 
+```
 iget-boolean v2 v12 Ltv/danmaku/bili/ui/theme/api/BiliSkin;->【定位】mIsFree:Z
 <删除这行>if-eqz v2 :label_143<删除这行>
 iget-object v0 v11 Lbl/emq$b;->q:Landroid/widget/TextView;
-
+```
 2. onclick 代码片段:
-> 
+```
 iget-boolean v3 v0 Ltv/danmaku/bili/ui/theme/api/BiliSkin;->【定位】mIsFree:Z
-<修改这里  直接goto到62>if-nez v3 :label_62<修改这里>
-
+<修改这里，直接goto到label_62>if-nez v3 :label_62<修改这里>
+```
 一个控制显示**使用**按钮  一个控制点击跳过权限检测
 
 
 ## 番剧详情页承包下面的广告
 `5.9.1`
 1. 布局文件`res/layout/bangumi_item_detail_advertise.xml`
-2. 添加`android:visibility="gone" `
+2. 添加`android:visibility="gone"`
 3. 修改宽高为0dp
 > 
-android:layout_width="0dp"
+android:layout_width="0dp"  
 android:layout_height="0dp"
 
-`新版(5.31.0测试)`
-番剧详情页抓包可得，在第一个class 搜索app_cover，改成别的名字，(若失败把上面的ab也改掉)
-类名BangumiUniformSeason$OperationActivity
+`新版(5.31.0测试)`  
+番剧详情页抓包可得，在第一个class 搜索app_cover，改成别的名字，(若失败把上面的ab也改掉)  
+类名`BangumiUniformSeason$OperationActivity`  
 可能需要MT管理器的 *dex编辑器++* 来修改这里的数据
 
 
 ## 去除会员购，游戏中心和顶栏
 
-顶栏底栏和右上角都是启动时联网控制，类似之前抓包后修改id，即可屏蔽后使用内置数据
+顶栏底栏和右上角都是启动时联网控制，类似之前抓包后修改id，即可屏蔽后使用内置数据  
 完整匹配加大小写搜索`abtest`，将`classes3.dex`下的`tv/danmaku/bili/ui/main2/resource/MainResourceManager$TabResponse` 中`data`改名(多次测试得出的位置)
 
-接着修改默认顶底栏数据，完整匹配搜索**会员购**，`classes3.dex`下根据需要自行删减。。
+接着修改默认顶底栏数据，完整匹配搜索**会员购**，`classes3.dex`下根据需要自行删减。。  
 从`new-instance v1, Lbl/okz; `到`invoke-interface {v0, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z`为一个块
 
 
@@ -154,7 +152,7 @@ check-cast v8 Lcom/bilibili/bilibililive/followingcard/net/entity/FollowingType;
 iget-object v8 v8 Lcom/bilibili/bilibililive/followingcard/net/entity/FollowingType;->name:Ljava/lang/String;
 【invoke-virtual {v0,v9,v8} Lbl/coe;->a(Landroid/support/v4/app/Fragment;Ljava/lang/String;)V】
 ```
-删除这两段，就是删除动态的最后两个顶栏保留第一个视频页,如果要保留其它可酌情删除，然后因为只剩一个了，可以把顶栏直接隐藏掉：`fragment_following_home_exhibition.xml`->`tabs`下面高度改成`0dp`
+删除这两段，就是删除动态的最后两个顶栏保留第一个视频页,如果要保留其它可酌情删除，然后因为只剩一个了，可以把顶栏直接隐藏掉：`fragment_following_home_exhibition.xml`->`tabs`下面高度改成`0dp`  
 **注意：去除动态的综合页会导致动态小红点去不掉**
 
 
@@ -167,9 +165,9 @@ iget-object v8 v8 Lcom/bilibili/bilibililive/followingcard/net/entity/FollowingT
 
 1. arsc中搜索"版权受限"【title_download_forbid】和"缓存"【video_detail_download】的id，大概第二个claas.dex中可搜索到代码位置，修改绘制缓存按钮
 > 
-~~if-eqz v1 :label_224~~  **删掉这行，`label_224` 下面有 `版权受限`的id**
-iget-object v1 v7 Ltv/danmaku/bili/ui/video/section/ActionSection$ActionViewHolder;->downloadText:Landroid/widget/TextView;
-const v3 0x7f090d52 **左边`0x7f090d52`是`缓存`的id**
+~~if-eqz v1 :label_224~~  【**删掉这行，`label_224` 下面有 `版权受限`的id**】  
+iget-object v1 v7 Ltv/danmaku/bili/ui/video/section/ActionSection$ActionViewHolder;->downloadText:Landroid/widget/TextView;  
+const v3 0x7f090d52 【**左边`0x7f090d52`是`缓存`的id**】
 
 2. 这修改后按钮是变过来了，点击会提示 *版权受限*，根据以前的goto大法自行体会。。
 3. 还会再提示 *无法下载*，继续goto大法
@@ -224,7 +222,7 @@ const v3 0x7f090d52 **左边`0x7f090d52`是`缓存`的id**
 
 ## 升级检测屏蔽
 
-新版app升级检测网址如下已被转码
+升级检测网址如下,新版app已被转码  
 https://app.bilibili.com/x/v2/version/update
 ```
 const-class v2, 【Ltv/danmaku/bili/update/BiliUpdateVerInfo】 代码搜索这句定位
@@ -263,22 +261,22 @@ const-class v2, 【Ltv/danmaku/bili/update/BiliUpdateVerInfo】 代码搜索这�
 2. `classes3.dex`中定位  转java源码后观察大概有2句add()方法，推测前面一行就是服务器控制的权限开关，根据之前所学，想办法跳过这两处检测即可
 
 ### 视频详情页播放窗口的投屏按钮
-查询后xml搜索`ic_bplayer_remote`的id `7F080765`有两结果
-`res/layout/bangumi_activity_vertical_player.xml`
-`res/layout/bili_app_activity_vertical_player_tab_base.xml`
-修改定位id上面的android:visibility="gone"为visible
+查询后xml搜索`ic_bplayer_remote`的id `7F080765`有两结果  
+`res/layout/bangumi_activity_vertical_player.xml`  
+`res/layout/bili_app_activity_vertical_player_tab_base.xml`  
+修改定位id上面的android:visibility="gone"为visible  
 **番剧页播放器暂时无解。还有代码查不出来。。**
 
 
 ## 修改启动activity的bug
 
-即，后台时点哔哩图标会直接进入本次修改的启动activity(即首页)而无法恢复之前的页面。
+即，后台时点哔哩图标会直接进入本次修改的启动activity(即首页)而无法恢复之前的页面。  
 删除该activity的`android:launchMode="singleTask"`属性行即可
 
 
 ## 视频详情页推荐列表广告
 
-id应该是`ad_tint_frame`，使用xml搜索
+id应该是`ad_tint_frame`，使用xml搜索  
 可能是`res/layout-v17/bili_ad_feed_ad_video_v2.xml`，按照之前修改布局隐藏即可
 
 
@@ -296,8 +294,8 @@ claases4.dex的`gbg->n()`方法，`:cond_d9`直接如下返回
 >    invoke-virtual {p0}, Lbl/gbg;->r()V
 
 2. 然后修改小窗模式
-按照`流量播放`的`id`一路定位到`Lbl/eyr;` 最后反查`Lbl/eyr;`
-该片段直接控制显示浮层，所以把调用eyr的直接删掉，即反查得到的`Lbl/eyu;`
+按照`流量播放`的`id`一路定位到`Lbl/eyr;` 最后反查`Lbl/eyr;`  
+该片段直接控制显示浮层，所以把调用eyr的直接删掉，即反查得到的`Lbl/eyu;`  
 代码参考删除如下：
 ```
     move-result-object p1
@@ -308,8 +306,8 @@ claases4.dex的`gbg->n()`方法，`:cond_d9`直接如下返回
 
 
 ## 私人备注
-IWXAPI;->registerApp 微信sdk位置
-小程序视频位置，`ShareParamMinProgram;ShareParamWebPage;`
+IWXAPI;->registerApp 微信sdk  
+小程序视频，`ShareParamMinProgram;ShareParamWebPage;`
 ```
     .line 159
     new-instance v0, Lcom/bilibili/socialize/share/core/shareparam/ShareParamWebPage;
