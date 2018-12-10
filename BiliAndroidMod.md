@@ -304,6 +304,10 @@ claases4.dex的`gbg->n()`方法，`:cond_d9`直接如下返回
     invoke-virtual {p1, v0}, Lbl/ptr$a;->a(Lbl/ptm;)Lbl/ptr$a;
 ```
 
+## 签名验证
+1. 旧版本可以使用MT管理器的去除签名校验工具。然后可能需要重命名`META-INF/CERT.RSA/SF`，注意保持`xxx.RSA/xxx.SF`命名一致  
+2. 新版本定位到`lib/armeabi-v7a/libbili.so`，十六进制编辑，ANSI文本搜索`META` 修改两处为`METB`等等  
+若只能搜索十六进制，则十六进制数值为 4D 45 54 41  任意修改即可
 
 ## 私人备注
 IWXAPI;->registerApp 微信sdk  
