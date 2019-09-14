@@ -29,6 +29,8 @@
          * [视频和番剧播放](#视频和番剧播放)
          * [直播](#直播)
       * [签名验证](#签名验证)
+      * [qq分享修复](#qq分享修复)
+
 
 
 # 版本说明
@@ -48,6 +50,8 @@
 
 
 ## 5.31.0+更新记录
+19.09.14：修复缓存权限检测
+19.06.27：修复分享到新版本手机qq的权限
 12.04：特别版本_移除直播流量提示  
 11.10：特别版本_移除番剧和普通视频的流量播放提示  
 10.30：去除小米/魅族/华为等推送receiver  
@@ -332,6 +336,31 @@ claases4.dex的`gbg->n()`方法，`:cond_d9`直接如下返回
 1. 旧版本可以使用MT管理器的去除签名校验工具。然后可能需要重命名`META-INF/CERT.RSA/SF`，注意保持`xxx.RSA/xxx.SF`命名一致  
 2. 新版本定位到`lib/armeabi-v7a/libbili.so`，十六进制编辑，ANSI文本搜索`META` 修改两处为`METB`等等  
 若只能搜索十六进制，则十六进制数值为 4D 45 54 41  任意修改即可
+
+
+## qq分享修复
+搜索定位
+```
+invoke-static {v0, v1}, Lcom/tencent/tauth/Tencent;->createInstance(Ljava/lang/String;Landroid/content/Context;)Lcom/tencent/tauth/Tencent;
+```
+
+(搜狗输入法的)qq分享代码参考-----
+```
+    const-string v0, "101679027"
+[5.31上面这句可能需要手动添加,其他版本如果分享到qq提示了appid则直接字符串搜索替换即可]
+    iget-object v1, p0, Lnq;->a:Landroid/app/Activity;
+
+    invoke-static {v0, v1}, Lcom/tencent/tauth/Tencent;->createInstance(Ljava/lang/String;Landroid/content/Context;)Lcom/tencent/tauth/Tencent;
+
+    move-result-object v0
+
+    iput-object v0, p0, Lnq;->a:Lcom/tencent/tauth/Tencent;
+```
+-----------
+appid      101683658
+签名    mt默认
+不满意名字图标的话可去qq互联申请。。不一定能通过
+
 
 ## 私人备注
 IWXAPI;->registerApp 微信sdk  
