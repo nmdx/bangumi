@@ -120,9 +120,20 @@ const v0 <1.找到这里>0x7f090269<找到这里>
       0x76t
 ```
 直接搜索定位，5.31.0为classes.dex中第一个结果，修改一个字符即可，比如0x76t --> 0x77t 【16进制，修改加减1即可，不要过大以免字符解码异常】
-
+-----------
 5.47.0貌似没有字符编码了，api应该是`http://api.bilibili.com/pgc/player/api/playurl`
-自行研究附近代码，其它版本可以抓包对比在线播放/缓存api参数研究，目前发现问题就是在线限速严重，搭配闪飞多线程将就用用吧
+字符串定位附近代码，参考如下(classes5.dex -> eor)
+```
+   invoke-virtual {p2}, Lcom/bilibili/lib/media/resolver/params/ResolveMediaResourceParams;->d()Z
+
+   move-result v1
+
+   if-eqz v1, :cond_15a  [这里直接goto]
+
+   const-string/jumbo v1, "1"  [或者这里改为"0"]
+
+```
+其它版本可以抓包对比在线播放/缓存api参数研究，目前发现问题就是在线限速严重，搭配闪飞多线程将就用用吧
 
 ## 主题代码
 特么。。第一次改错了，全买了一遍
@@ -202,7 +213,9 @@ iget-object v8 v8 Lcom/bilibili/bilibililive/followingcard/net/entity/FollowingT
 ## 黑洞广告卡片 
 
 *dex++编辑器* 完整匹配大小写搜索`extra` 修改第一个`classes.dex`，参考`com.bilibili.ad.adview.feed.model`，重命名`extra`
-
+--------
+New：可以直接定位类IndexADItem
+删除整个`.method public constructor <init>()V`【解决广告占位(黑洞)问题，优选】
 
 ## 非番剧的版权限制按钮---5.9.1版本
 
