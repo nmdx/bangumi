@@ -120,7 +120,7 @@ const v0 <1.找到这里>0x7f090269<找到这里>
       0x76t
 ```
 直接搜索定位，5.31.0为classes.dex中第一个结果，修改一个字符即可，比如0x76t --> 0x77t 【16进制，修改加减1即可，不要过大以免字符解码异常】
------------
+__________
 5.47.0貌似没有字符编码了，api应该是`http://api.bilibili.com/pgc/player/api/playurl`
 字符串定位附近代码，参考如下(classes5.dex -> eor)
 ```
@@ -213,7 +213,7 @@ iget-object v8 v8 Lcom/bilibili/bilibililive/followingcard/net/entity/FollowingT
 ## 黑洞广告卡片 
 
 *dex++编辑器* 完整匹配大小写搜索`extra` 修改第一个`classes.dex`，参考`com.bilibili.ad.adview.feed.model`，重命名`extra`
---------
+___________
 New：可以直接定位类IndexADItem
 删除整个`.method public constructor <init>()V`【解决广告占位(黑洞)问题，优选】
 
@@ -384,9 +384,11 @@ invoke-static {v0, v1}, Lcom/tencent/tauth/Tencent;->createInstance(Ljava/lang/S
 
     iput-object v0, p0, Lnq;->a:Lcom/tencent/tauth/Tencent;
 ```
------------
+_________
 appid      101683658
+
 签名    mt默认
+
 不满意名字图标的话可去qq互联申请。。不一定能通过
 
 
