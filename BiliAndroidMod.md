@@ -245,6 +245,8 @@ const v3 0x7f090d52 【**左边`0x7f090d52`是`缓存`的id**】
         -0x45t
         -0x4at
 
+【注：MT2.8.0已支持字符串解密(vip)，解密后直接搜索'缓存付费'定位即可】
+
 代码参考：
 ```
 .method public c(Lcom/bilibili/bangumi/api/uniform/BangumiUniformEpisode;)Z
@@ -278,7 +280,7 @@ const v3 0x7f090d52 【**左边`0x7f090d52`是`缓存`的id**】
 
 ## 升级检测屏蔽
 
-升级检测网址如下,新版app已被转码  
+升级检测网址如下,新版app已被转码
 https://app.bilibili.com/x/v2/version/update
 ```
 const-class v2, 【Ltv/danmaku/bili/update/BiliUpdateVerInfo】 代码搜索这句定位
@@ -302,6 +304,7 @@ const-class v2, 【Ltv/danmaku/bili/update/BiliUpdateVerInfo】 代码搜索这�
     move-result-object v2
     invoke-static {v2}, Lokhttp3/HttpUrl;->f(Ljava/lang/String;)Lokhttp3/HttpUrl;【定位可注意下这里】
 ```
+【注：MT2.8.0已支持字符串解密(vip)，解密后直接字符串搜索替换即可，如无会员请自行寻求帮助代解密】
 
 
 ## 直播间右下角广告
